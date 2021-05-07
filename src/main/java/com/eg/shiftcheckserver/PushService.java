@@ -22,7 +22,7 @@ public class PushService {
         /**
          * {
          *   "touser": "OPENID",
-         *   "template_id": "TEMPLATE_ID",
+         *   "template_id": "ZoRFis7-_uUDKMponsvbN0nOsWIKqqt7bUUp0jucarI",
          *   "page": "index",
          *   "miniprogram_state":"developer",
          *   "lang":"zh_CN",
