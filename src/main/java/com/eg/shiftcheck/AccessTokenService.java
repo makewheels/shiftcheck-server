@@ -24,10 +24,11 @@ public class AccessTokenService {
         return accessToken;
     }
 
-    public void requestForAccessToken() {
+    private void requestForAccessToken() {
+        String secret = System.getenv("secret");
         String json = HttpUtil.get("https://api.weixin.qq.com/cgi-bin/token?"
                 + "grant_type=client_credential&appid=" + appid
-                + "&secret= ");
+                + "&secret=" + secret);
         JSONObject jsonObject = JSON.parseObject(json);
         expireTime = System.currentTimeMillis() + jsonObject.getIntValue("expires_in") * 1000L;
         accessToken = jsonObject.getString("access_token");

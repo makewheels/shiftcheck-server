@@ -6,30 +6,37 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.text.ParseException;
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 @Component
 public class PushTask {
     @Resource
     private PushService pushService;
 
-    private final List<String> openIds
-            = Arrays.asList(
-            "o9K4b0QW0Yz2wosJeEIIk7QJo8Cg", "o9K4b0Y2CtwEzCndp3_snLGZfpuM");
+    private final List<String> openIds = Arrays.asList(
+            "o9K4b0QW0Yz2wosJeEIIk7QJo8Cg"
+//            , "o9K4b0Y2CtwEzCndp3_snLGZfpuM",
+//            "o9K4b0RYr0Fye0EzSmOMv3Nv2sjc"
+    );
     private final int targetBanzu = 2;
 
-    @Scheduled(fixedRate = 5000)
-    private void push() throws ParseException {
+    @Scheduled(fixedRate = 1000 * 60 * 60)
+    private void push() {
         //首先看现在是不是推送时间，先按照晚上19点来
         LocalDateTime now = LocalDateTime.now();
         int hour = now.getHour();
-//        if (hour != 19)
-//            return;
+        if (hour != 19) {
+            System.out.println("现在不是19点，跳过: " + LocalDateTime.now().toString());
+            return;
+        }
 
         String ruleJson = "{\"type\":\"1\",\"showName\":\"五班三倒\",\"idName\":\"wbsd-work" +
                 "er\",\"startDate\":\"2016-06-07\",\"restName\":\"休息\",\"banzuList\":[\"一班" +
@@ -58,13 +65,14 @@ public class PushTask {
 
         //解析明天的班组，看有没有我们 [2, 4, 1]
         for (int i = 0; i < period.length; i++) {
-            if (period[i] == targetBanzu) {
-                String banName = banList.getString(i);
-                DayOfWeek dayOfWeek = now.getDayOfWeek();
-                String week = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault());
-                String time = end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                pushService.pushToWechatMiniProgram(openIds, banName, week, time);
-            }
+            if (period[i] != targetBanzu)
+                continue;
+            //过滤到我们要的目标班组
+            String banName = banList.getString(i);
+            DayOfWeek dayOfWeek = end.getDayOfWeek();
+            String week = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault());
+            String time = end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            pushService.pushToWechatMiniProgram(openIds, banName, week, time);
         }
     }
 }
