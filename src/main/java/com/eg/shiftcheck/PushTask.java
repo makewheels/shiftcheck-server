@@ -1,4 +1,4 @@
-package com.eg.shiftcheckserver;
+package com.eg.shiftcheck;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -7,13 +7,11 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Component
 public class PushTask {

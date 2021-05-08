@@ -1,4 +1,4 @@
-package com.eg.shiftcheckserver;
+package com.eg.shiftcheck;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

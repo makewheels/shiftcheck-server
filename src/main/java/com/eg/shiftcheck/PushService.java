@@ -1,4 +1,4 @@
-package com.eg.shiftcheckserver;
+package com.eg.shiftcheck;
 
 import com.github.makewheels.HttpUtil;
 import org.springframework.stereotype.Service;

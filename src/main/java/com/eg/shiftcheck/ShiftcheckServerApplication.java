@@ -1,4 +1,4 @@
-package com.eg.shiftcheckserver;
+package com.eg.shiftcheck;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
