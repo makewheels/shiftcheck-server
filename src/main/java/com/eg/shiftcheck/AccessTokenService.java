@@ -18,8 +18,8 @@ public class AccessTokenService {
         //如果没有，重新获取
         if (accessToken == null)
             requestForAccessToken();
-        //如果过期，重新获取
-        if (System.currentTimeMillis() >= expireTime)
+        else if (System.currentTimeMillis() >= expireTime)
+            //如果过期，重新获取
             requestForAccessToken();
         return accessToken;
     }

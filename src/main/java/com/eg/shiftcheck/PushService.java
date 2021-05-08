@@ -46,7 +46,7 @@ public class PushService {
         data.setThing4(thing4);
 
         template.setData(data);
-        return HttpUtil.post(url, JSON.toJSONString(data));
+        return HttpUtil.post(url, JSON.toJSONString(template));
     }
 
     public void pushToWechatMiniProgram(
