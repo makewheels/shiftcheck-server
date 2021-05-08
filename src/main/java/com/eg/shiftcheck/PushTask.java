@@ -33,7 +33,7 @@ public class PushTask {
         //首先看现在是不是推送时间，先按照晚上19点来
         LocalDateTime now = LocalDateTime.now();
         int hour = now.getHour();
-        if (hour != 20) {
+        if (hour != 19) {
             System.out.println("现在不是19点，跳过: " + LocalDateTime.now().toString());
             return;
         }
