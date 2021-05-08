@@ -1,5 +1,6 @@
 package com.eg.shiftcheck;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.eg.shiftcheck.bean.*;
 import com.github.makewheels.HttpUtil;
@@ -17,7 +18,7 @@ public class PushService {
     @Resource
     private AccessTokenService accessTokenService;
 
-    private void sendSingleUser(String openId, String banName, String week, String time) {
+    private String sendSingleUser(String openId, String banName, String week, String time) {
         String accessToken = accessTokenService.getAccessToken();
         String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + accessToken;
         Template template = new Template();
@@ -28,30 +29,33 @@ public class PushService {
         Data data = new Data();
 
         Thing1 thing1 = new Thing1();
-        thing1.setValue("");
+        thing1.setValue(banName);
         data.setThing1(thing1);
 
         Thing2 thing2 = new Thing2();
-        thing2.setValue("");
+        thing2.setValue(week);
         data.setThing2(thing2);
 
 
         Time3 time3 = new Time3();
-        time3.setValue("");
+        time3.setValue(time);
         data.setTime3(time3);
 
         Thing4 thing4 = new Thing4();
-        thing4.setValue("");
+        thing4.setValue("晴 16-28°C");
         data.setThing4(thing4);
 
         template.setData(data);
-        HttpUtil.post(url, "");
+        return HttpUtil.post(url, JSON.toJSONString(data));
     }
 
     public void pushToWechatMiniProgram(
             List<String> openIds, String banName, String week, String time) {
         for (String openId : openIds) {
-            sendSingleUser(openId, banName, week, time);
+            String json = sendSingleUser(openId, banName, week, time);
+            JSONObject result = JSONObject.parseObject(json);
+            int errcode = result.getIntValue("errcode");
+            System.out.println("errcode = " + errcode);
         }
 
         /**
