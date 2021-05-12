@@ -17,14 +17,14 @@ public class AccessTokenService {
     public String getAccessToken() {
         //如果没有，重新获取
         if (accessToken == null)
-            requestForAccessToken();
+            requestAccessToken();
         else if (System.currentTimeMillis() >= expireTime)
             //如果过期，重新获取
-            requestForAccessToken();
+            requestAccessToken();
         return accessToken;
     }
 
-    private void requestForAccessToken() {
+    private void requestAccessToken() {
         String secret = System.getenv("secret");
         String json = HttpUtil.get("https://api.weixin.qq.com/cgi-bin/token?"
                 + "grant_type=client_credential&appid=" + appid
