@@ -30,7 +30,8 @@ public class AccessTokenService {
                 + "grant_type=client_credential&appid=" + appid
                 + "&secret=" + secret);
         JSONObject jsonObject = JSON.parseObject(json);
-        expireTime = System.currentTimeMillis() + jsonObject.getIntValue("expires_in") * 1000L;
+        //稍微提前一些过期，防止出现错误
+        expireTime = System.currentTimeMillis() + jsonObject.getIntValue("expires_in") * 1000L - 10000;
         accessToken = jsonObject.getString("access_token");
     }
 }
