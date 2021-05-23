@@ -33,7 +33,6 @@ public class SmsService {
                 .setSignName("英语语法")
                 .setTemplateCode("SMS_217406140")
                 .setTemplateParam(jsonObject.toJSONString());
-        // 复制代码运行请自行打印 API 的返回值
         Client client = new SmsService().getClient();
         SendSmsResponse sendSmsResponse = client.sendSms(sendSmsRequest);
         System.out.println(JSONObject.toJSONString(sendSmsResponse));

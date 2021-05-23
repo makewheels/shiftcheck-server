@@ -25,7 +25,7 @@ public class AccessTokenService {
     }
 
     private void requestAccessToken() {
-        String secret = System.getenv("secret");
+        String secret = System.getenv("shiftcheck_server_app_secret");
         String json = HttpUtil.get("https://api.weixin.qq.com/cgi-bin/token?"
                 + "grant_type=client_credential&appid=" + appid
                 + "&secret=" + secret);
