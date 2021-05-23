@@ -27,7 +27,7 @@ public class SmsService {
         jsonObject.put("date", "2021-05-03");
         jsonObject.put("temp", "大庆，18-22");
         SendSmsRequest sendSmsRequest = new SendSmsRequest()
-                .setPhoneNumbers("18603672365")
+                .setPhoneNumbers("15527175535\n")
                 .setSignName("英语语法")
                 .setTemplateCode("SMS_217406140")
                 .setTemplateParam(jsonObject.toJSONString());
