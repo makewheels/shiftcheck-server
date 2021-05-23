@@ -28,18 +28,33 @@ public class SmsService {
         return client;
     }
 
-    public static void main(String[] args) throws Exception {
+    /**
+     * 发送提醒短信
+     */
+    public SendSmsResponse sendRemindSms(String phoneNumber, String templateParamJson) {
+        SendSmsRequest request = new SendSmsRequest()
+                .setPhoneNumbers(phoneNumber)
+                .setSignName("英语语法")
+                .setTemplateCode("SMS_217406140")
+                .setTemplateParam(templateParamJson);
+        Client client = new SmsService().getClient();
+        try {
+            return client.sendSms(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("ban", "白班");
         jsonObject.put("date", "2021-05-03");
         jsonObject.put("temp", "大庆，18-22");
-        SendSmsRequest request = new SendSmsRequest()
-                .setPhoneNumbers("15527175535")
-                .setSignName("英语语法")
-                .setTemplateCode("SMS_217406140")
-                .setTemplateParam(jsonObject.toJSONString());
-        Client client = new SmsService().getClient();
-        SendSmsResponse response = client.sendSms(request);
-        System.out.println(JSONObject.toJSONString(response));
+        SmsService smsService = new SmsService();
+        SendSmsResponse sendSmsResponse = smsService.sendRemindSms(
+                "15527175535", jsonObject.toJSONString());
+        System.out.println(JSONObject.toJSONString(sendSmsResponse));
+
     }
 }
