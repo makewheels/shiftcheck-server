@@ -33,13 +33,13 @@ public class SmsService {
         jsonObject.put("ban", "白班");
         jsonObject.put("date", "2021-05-03");
         jsonObject.put("temp", "大庆，18-22");
-        SendSmsRequest sendSmsRequest = new SendSmsRequest()
+        SendSmsRequest request = new SendSmsRequest()
                 .setPhoneNumbers("15527175535")
                 .setSignName("英语语法")
                 .setTemplateCode("SMS_217406140")
                 .setTemplateParam(jsonObject.toJSONString());
         Client client = new SmsService().getClient();
-        SendSmsResponse response = client.sendSms(sendSmsRequest);
+        SendSmsResponse response = client.sendSms(request);
         System.out.println(JSONObject.toJSONString(response));
     }
 }
