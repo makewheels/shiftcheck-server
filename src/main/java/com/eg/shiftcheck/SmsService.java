@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 public class SmsService {
     private Client client;
 
-    private Client getClient(String accessKeyId, String accessKeySecret) throws Exception {
+    private Client getClient() throws Exception {
         if (client != null)
             return client;
+        String accessKeyId = System.getenv("shiftcheck_server_aliyun_sms_accessKeyId");
+        String accessKeySecret = System.getenv("shiftcheck_server_aliyun_sms_accessKeySecret");
         Config config = new Config()
                 .setAccessKeyId(accessKeyId)
                 .setAccessKeySecret(accessKeySecret);
@@ -32,8 +34,8 @@ public class SmsService {
                 .setTemplateCode("SMS_217406140")
                 .setTemplateParam(jsonObject.toJSONString());
         // 复制代码运行请自行打印 API 的返回值
-        Client client = new SmsService().getClient("", "");
+        Client client = new SmsService().getClient();
         SendSmsResponse sendSmsResponse = client.sendSms(sendSmsRequest);
-        System.out.println(sendSmsResponse);
+        System.out.println(JSONObject.toJSONString(sendSmsResponse));
     }
 }
