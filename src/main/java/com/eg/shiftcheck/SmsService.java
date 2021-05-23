@@ -11,16 +11,21 @@ import org.springframework.stereotype.Service;
 public class SmsService {
     private Client client;
 
-    private Client getClient() throws Exception {
-        if (client != null)
-            return client;
-        String accessKeyId = System.getenv("shiftcheck_server_aliyun_sms_accessKeyId");
-        String accessKeySecret = System.getenv("shiftcheck_server_aliyun_sms_accessKeySecret");
-        Config config = new Config()
-                .setAccessKeyId(accessKeyId)
-                .setAccessKeySecret(accessKeySecret);
-        config.endpoint = "dysmsapi.aliyuncs.com";
-        return new Client(config);
+    private Client getClient() {
+        if (client == null) {
+            String accessKeyId = System.getenv("shiftcheck_server_aliyun_sms_accessKeyId");
+            String accessKeySecret = System.getenv("shiftcheck_server_aliyun_sms_accessKeySecret");
+            Config config = new Config()
+                    .setAccessKeyId(accessKeyId)
+                    .setAccessKeySecret(accessKeySecret);
+            config.endpoint = "dysmsapi.aliyuncs.com";
+            try {
+                client = new Client(config);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return client;
     }
 
     public static void main(String[] args) throws Exception {
@@ -34,7 +39,7 @@ public class SmsService {
                 .setTemplateCode("SMS_217406140")
                 .setTemplateParam(jsonObject.toJSONString());
         Client client = new SmsService().getClient();
-        SendSmsResponse sendSmsResponse = client.sendSms(sendSmsRequest);
-        System.out.println(JSONObject.toJSONString(sendSmsResponse));
+        SendSmsResponse response = client.sendSms(sendSmsRequest);
+        System.out.println(JSONObject.toJSONString(response));
     }
 }
