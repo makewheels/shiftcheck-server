@@ -8,7 +8,7 @@ import com.aliyun.teaopenapi.models.Config;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SmsService {
+public class AliyunSmsService {
     private Client client;
 
     private Client getClient() {
@@ -37,7 +37,7 @@ public class SmsService {
                 .setSignName("英语语法")
                 .setTemplateCode("SMS_217406140")
                 .setTemplateParam(templateParamJson);
-        Client client = new SmsService().getClient();
+        Client client = new AliyunSmsService().getClient();
         try {
             return client.sendSms(request);
         } catch (Exception e) {
@@ -51,8 +51,8 @@ public class SmsService {
         jsonObject.put("ban", "白班");
         jsonObject.put("date", "2021-05-03");
         jsonObject.put("temp", "大庆，18-22");
-        SmsService smsService = new SmsService();
-        SendSmsResponse sendSmsResponse = smsService.sendRemindSms(
+        AliyunSmsService aliyunSmsService = new AliyunSmsService();
+        SendSmsResponse sendSmsResponse = aliyunSmsService.sendRemindSms(
                 "15527175535", jsonObject.toJSONString());
         System.out.println(JSONObject.toJSONString(sendSmsResponse));
 
