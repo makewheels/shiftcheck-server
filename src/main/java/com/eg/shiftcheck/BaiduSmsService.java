@@ -5,12 +5,10 @@ import com.baidubce.services.sms.SmsClient;
 import com.baidubce.services.sms.SmsClientConfiguration;
 import com.baidubce.services.sms.model.SendMessageV3Request;
 import com.baidubce.services.sms.model.SendMessageV3Response;
-import org.bouncycastle.pqc.math.linearalgebra.RandUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Service
 public class BaiduSmsService {
