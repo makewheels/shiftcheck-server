@@ -14,27 +14,28 @@ import java.util.UUID;
 public class PushService {
     @Resource
     private AccessTokenService accessTokenService;
+
     /**
      * {
-     *   "touser": "OPENID",
-     *   "template_id": "ZoRFis7-_uUDKMponsvbN0nOsWIKqqt7bUUp0jucarI",
-     *   "page": "index",
-     *   "miniprogram_state":"developer",
-     *   "lang":"zh_CN",
-     *   "data": {
-     *       "number01": {
-     *           "value": "339208499"
-     *       },
-     *       "date01": {
-     *           "value": "2015年01月05日"
-     *       },
-     *       "site01": {
-     *           "value": "TIT创意园"
-     *       } ,
-     *       "site02": {
-     *           "value": "广州市新港中路397号"
-     *       }
-     *   }
+     * "touser": "OPENID",
+     * "template_id": "ZoRFis7-_uUDKMponsvbN0nOsWIKqqt7bUUp0jucarI",
+     * "page": "index",
+     * "miniprogram_state":"developer",
+     * "lang":"zh_CN",
+     * "data": {
+     * "number01": {
+     * "value": "339208499"
+     * },
+     * "date01": {
+     * "value": "2015年01月05日"
+     * },
+     * "site01": {
+     * "value": "TIT创意园"
+     * } ,
+     * "site02": {
+     * "value": "广州市新港中路397号"
+     * }
+     * }
      * }
      * 订阅消息参数
      */
@@ -44,7 +45,9 @@ public class PushService {
         Template template = new Template();
         template.setTouser(openId);
         template.setTemplate_id("ZoRFis7-_uUDKMponsvbN0nOsWIKqqt7bUUp0jucarI");
-        template.setPage("index?clickId=" + UUID.randomUUID().toString().replace("-", ""));
+        String clickId = UUID.randomUUID().toString().replace("-", "");
+        //TODO 保存clickId到数据库
+        template.setPage("pages/index/index?clickId=" + clickId);
         template.setMiniprogram_state("developer");
         Data data = new Data();
 
@@ -55,7 +58,6 @@ public class PushService {
         Thing2 thing2 = new Thing2();
         thing2.setValue(week);
         data.setThing2(thing2);
-
 
         Time3 time3 = new Time3();
         time3.setValue(time);
