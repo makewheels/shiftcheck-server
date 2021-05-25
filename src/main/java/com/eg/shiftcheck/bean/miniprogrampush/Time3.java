@@ -1,7 +1,8 @@
 /**
   * Copyright 2021 json.cn 
   */
-package com.eg.shiftcheck.bean;
+package com.eg.shiftcheck.bean.miniprogrampush;
+import java.util.Date;
 
 /**
  * Auto-generated: 2021-05-08 15:18:44
@@ -9,7 +10,7 @@ package com.eg.shiftcheck.bean;
  * @author json.cn (i@json.cn)
  * @website http://www.json.cn/java2pojo/
  */
-public class Thing4 {
+public class Time3 {
 
     private String value;
     public void setValue(String value) {

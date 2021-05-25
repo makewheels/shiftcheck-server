@@ -2,6 +2,8 @@ package com.eg.shiftcheck;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.eg.shiftcheck.bean.weather.Data;
+import com.eg.shiftcheck.bean.weather.WeatherResponse;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -20,12 +22,20 @@ import java.util.Locale;
 public class PushTask {
     @Resource
     private PushService pushService;
+    @Resource
+    private WeatherService weatherService;
 
     private final List<String> openIds = Arrays.asList(
-            "o9K4b0QW0Yz2wosJeEIIk7QJo8Cg",
-            "o9K4b0Y2CtwEzCndp3_snLGZfpuM",
-            "o9K4b0RYr0Fye0EzSmOMv3Nv2sjc"
+            "o9K4b0QW0Yz2wosJeEIIk7QJo8Cg"
+//            ,
+//            "o9K4b0Y2CtwEzCndp3_snLGZfpuM",
+//            "o9K4b0RYr0Fye0EzSmOMv3Nv2sjc"
     );
+
+    private final List<String> phoneNumbers = Arrays.asList(
+            "15527175535"
+    );
+
     private final int targetBanzu = 2;
 
     @Scheduled(fixedRate = 1000 * 60 * 60)
@@ -35,7 +45,7 @@ public class PushTask {
         int hour = now.getHour();
         if (hour != 19) {
             System.out.println("现在不是19点，跳过: " + LocalDateTime.now().toString());
-            return;
+//            return;
         }
 
         String ruleJson = "{\"type\":\"1\",\"showName\":\"五班三倒\",\"idName\":\"wbsd-work" +
@@ -72,7 +82,14 @@ public class PushTask {
             DayOfWeek dayOfWeek = end.getDayOfWeek();
             String week = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault());
             String time = end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            pushService.pushToWechatMiniProgram(openIds, banName, week, time);
+            //获取天气信息
+            WeatherResponse weatherResponse = weatherService.getByCityName("大庆");
+            Data data = weatherResponse.getData().get(1);
+            String weather = data.getWea() + " " + data.getTem_night() + "-" + data.getTem_day();
+            pushService.pushToWechatMiniProgram(openIds, banName, week, time, weather + "°C");
+            for (String phoneNumber : phoneNumbers) {
+                pushService.sendRemindSms(phoneNumber, banName, time + " " + week, weather);
+            }
         }
     }
 }
