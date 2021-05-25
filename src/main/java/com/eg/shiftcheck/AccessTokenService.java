@@ -28,7 +28,7 @@ public class AccessTokenService {
         String secret = System.getenv("shiftcheck_server_app_secret");
         String json = HttpUtil.get("https://api.weixin.qq.com/cgi-bin/token?"
                 + "grant_type=client_credential&appid=" + appid
-                + "&secret=" + secret);
+                + "&secret=" + "cbf9d03ce78cbfacfcb67b3051b547e3");
         JSONObject jsonObject = JSON.parseObject(json);
         //稍微提前一些过期，防止出现错误
         expireTime = System.currentTimeMillis() + jsonObject.getIntValue("expires_in") * 1000L - 10000;

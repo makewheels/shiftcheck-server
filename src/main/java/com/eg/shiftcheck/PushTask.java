@@ -27,13 +27,15 @@ public class PushTask {
 
     private final List<String> openIds = Arrays.asList(
             "o9K4b0QW0Yz2wosJeEIIk7QJo8Cg"
-//            ,
-//            "o9K4b0Y2CtwEzCndp3_snLGZfpuM",
-//            "o9K4b0RYr0Fye0EzSmOMv3Nv2sjc"
+            ,
+            "o9K4b0Y2CtwEzCndp3_snLGZfpuM",
+            "o9K4b0RYr0Fye0EzSmOMv3Nv2sjc"
     );
 
     private final List<String> phoneNumbers = Arrays.asList(
-            "15527175535"
+            "15527175535",
+            "13351190738",
+            "13351181909"
     );
 
     private final int targetBanzu = 2;
@@ -45,7 +47,7 @@ public class PushTask {
         int hour = now.getHour();
         if (hour != 19) {
             System.out.println("现在不是19点，跳过: " + LocalDateTime.now().toString());
-//            return;
+            return;
         }
 
         String ruleJson = "{\"type\":\"1\",\"showName\":\"五班三倒\",\"idName\":\"wbsd-work" +
@@ -80,12 +82,14 @@ public class PushTask {
             //过滤到我们要的目标班组
             String banName = banList.getString(i);
             DayOfWeek dayOfWeek = end.getDayOfWeek();
-            String week = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault());
+            //显示中文的星期几
+            String week = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.SIMPLIFIED_CHINESE);
             String time = end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             //获取天气信息
             WeatherResponse weatherResponse = weatherService.getByCityName("大庆");
             Data data = weatherResponse.getData().get(1);
             String weather = data.getWea() + " " + data.getTem_night() + "-" + data.getTem_day();
+            //TODO 度在，短信和小程序推送，统一
             pushService.pushToWechatMiniProgram(openIds, banName, week, time, weather + "°C");
             for (String phoneNumber : phoneNumbers) {
                 pushService.sendRemindSms(phoneNumber, banName, time + " " + week, weather);

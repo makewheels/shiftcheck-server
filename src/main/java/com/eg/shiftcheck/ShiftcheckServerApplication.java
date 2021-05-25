@@ -14,8 +14,8 @@ public class ShiftcheckServerApplication {
         SpringApplication.run(ShiftcheckServerApplication.class, args);
     }
 
-//    @Bean
-//    public RestTemplate getRestTemplate() {
-//        return new RestTemplate();
-//    }
+    @Bean
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
 }

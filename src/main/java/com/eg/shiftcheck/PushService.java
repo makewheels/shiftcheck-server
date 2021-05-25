@@ -2,8 +2,10 @@ package com.eg.shiftcheck;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baidubce.services.sms.model.SendMessageV3Response;
 import com.eg.shiftcheck.bean.miniprogrampush.*;
 import com.github.makewheels.HttpUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -101,13 +103,12 @@ public class PushService {
         map.put("ban", ban);
         map.put("date", date);
         map.put("temp", temp);
-        System.out.println(JSON.toJSONString(map));
-//        SendMessageV3Response response = baiduSmsService.sendRemindSms(phoneNumber, map);
-//        System.out.println("PushService.sendRemindSms");
-//        System.out.println(response);
-//        String code = response.getCode();
-//        return StringUtils.isNotEmpty(code) && code.equals("1000");
-        return true;
+        System.out.println("发短信: phoneNumber = " + phoneNumber + " " + JSON.toJSONString(map));
+        SendMessageV3Response response = baiduSmsService.sendRemindSms(phoneNumber, map);
+        System.out.println("PushService.sendRemindSms");
+        System.out.println(response);
+        String code = response.getCode();
+        return StringUtils.isNotEmpty(code) && code.equals("1000");
     }
 
 }
