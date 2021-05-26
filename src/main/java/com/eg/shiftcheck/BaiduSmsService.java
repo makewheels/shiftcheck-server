@@ -16,9 +16,9 @@ public class BaiduSmsService {
 
     private SmsClient getClient() {
         if (client == null) {
-            SmsClientConfiguration config = new SmsClientConfiguration();
             String AccessKeyID = System.getenv("shiftcheck_server_baidu_sms_AccessKeyID");
             String AccessKeySecret = System.getenv("shiftcheck_server_baidu_sms_AccessKeySecret");
+            SmsClientConfiguration config = new SmsClientConfiguration();
             config.setCredentials(new DefaultBceCredentials(AccessKeyID, AccessKeySecret));
             config.setEndpoint("http://smsv3.bj.baidubce.com");
             client = new SmsClient(config);
