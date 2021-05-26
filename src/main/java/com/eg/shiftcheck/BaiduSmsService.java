@@ -12,15 +12,14 @@ import java.util.Map;
 
 @Service
 public class BaiduSmsService {
-    private final String ACCESS_KEY_ID = "5ab8934a11de44739b6a201d2e59e806";
-    private final String SECRET_ACCESS_KEY = "06e72cddf15243179812d21eeec89c5e";
-
     private SmsClient client;
 
     private SmsClient getClient() {
         if (client == null) {
             SmsClientConfiguration config = new SmsClientConfiguration();
-            config.setCredentials(new DefaultBceCredentials(ACCESS_KEY_ID, SECRET_ACCESS_KEY));
+            String AccessKeyID = System.getenv("shiftcheck_server_baidu_sms_AccessKeyID");
+            String AccessKeySecret = System.getenv("shiftcheck_server_baidu_sms_AccessKeySecret");
+            config.setCredentials(new DefaultBceCredentials(AccessKeyID, AccessKeySecret));
             config.setEndpoint("http://smsv3.bj.baidubce.com");
             client = new SmsClient(config);
         }
