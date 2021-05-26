@@ -88,9 +88,8 @@ public class PushTask {
             //获取天气信息
             WeatherResponse weatherResponse = weatherService.getByCityName("大庆");
             Data data = weatherResponse.getData().get(1);
-            String weather = data.getWea() + " " + data.getTem_night() + "-" + data.getTem_day();
-            //TODO 度在，短信和小程序推送，统一
-            pushService.pushToWechatMiniProgram(openIds, banName, week, time, weather + "°C");
+            String weather = data.getWea() + " " + data.getTem_night() + "-" + data.getTem_day() + "°C";
+            pushService.pushToWechatMiniProgram(openIds, banName, week, time, weather);
             for (String phoneNumber : phoneNumbers) {
                 pushService.sendRemindSms(phoneNumber, banName, time + " " + week, weather);
             }
