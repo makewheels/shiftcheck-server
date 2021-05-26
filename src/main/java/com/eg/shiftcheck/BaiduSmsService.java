@@ -37,7 +37,7 @@ public class BaiduSmsService {
     public SendMessageV3Response sendRemindSms(String phoneNumber, Map<String, String> contentVar) {
         SendMessageV3Request request = new SendMessageV3Request();
         request.setMobile(phoneNumber);
-        request.setSignatureId("sms-sign-QeEHQe10478");
+        request.setSignatureId("sms-sign-SHpajY29031");
         request.setTemplate("sms-tmpl-MuhSyL98050");
         request.setContentVar(contentVar);
         return getClient().sendMessage(request);
