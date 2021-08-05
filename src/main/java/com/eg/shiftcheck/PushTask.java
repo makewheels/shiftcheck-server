@@ -26,10 +26,8 @@ public class PushTask {
     private WeatherService weatherService;
 
     private final List<String> openIds = Arrays.asList(
-            "o9K4b0QW0Yz2wosJeEIIk7QJo8Cg"
-            ,
-            "o9K4b0Y2CtwEzCndp3_snLGZfpuM",
-            "o9K4b0RYr0Fye0EzSmOMv3Nv2sjc"
+            "o9K4b0QW0Yz2wosJeEIIk7QJo8Cg",
+            "o9K4b0Y2CtwEzCndp3_snLGZfpuM"
     );
 
     private final List<String> phoneNumbers = Arrays.asList(
