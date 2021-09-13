@@ -1,4 +1,4 @@
-package com.eg.shiftcheck.bean.weather;
+package com.github.makewheels.shiftcheck.bean.weather;
 
 
 @lombok.Data

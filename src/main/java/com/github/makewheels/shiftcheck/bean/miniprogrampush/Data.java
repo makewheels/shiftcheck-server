@@ -1,7 +1,7 @@
 /**
   * Copyright 2021 json.cn 
   */
-package com.eg.shiftcheck.bean.miniprogrampush;
+package com.github.makewheels.shiftcheck.bean.miniprogrampush;
 
 /**
  * Auto-generated: 2021-05-08 15:18:44

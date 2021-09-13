@@ -1,4 +1,4 @@
-package com.eg.shiftcheck;
+package com.github.makewheels.shiftcheck;
 
 import com.baidubce.auth.DefaultBceCredentials;
 import com.baidubce.services.sms.SmsClient;

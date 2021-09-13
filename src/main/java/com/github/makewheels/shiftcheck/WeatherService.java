@@ -1,7 +1,7 @@
-package com.eg.shiftcheck;
+package com.github.makewheels.shiftcheck;
 
 import com.alibaba.fastjson.JSON;
-import com.eg.shiftcheck.bean.weather.WeatherResponse;
+import com.github.makewheels.shiftcheck.bean.weather.WeatherResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

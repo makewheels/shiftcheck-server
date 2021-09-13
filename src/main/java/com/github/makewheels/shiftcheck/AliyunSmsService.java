@@ -1,4 +1,4 @@
-package com.eg.shiftcheck;
+package com.github.makewheels.shiftcheck;
 
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.dysmsapi20170525.Client;

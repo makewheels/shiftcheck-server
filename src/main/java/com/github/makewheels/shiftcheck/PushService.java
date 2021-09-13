@@ -1,10 +1,11 @@
-package com.eg.shiftcheck;
+package com.github.makewheels.shiftcheck;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baidubce.services.sms.model.SendMessageV3Response;
 import com.eg.shiftcheck.bean.miniprogrampush.*;
 import com.github.makewheels.HttpUtil;
+import com.github.makewheels.shiftcheck.bean.miniprogrampush.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

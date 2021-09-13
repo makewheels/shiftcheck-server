@@ -1,4 +1,4 @@
-package com.eg.shiftcheck;
+package com.github.makewheels.shiftcheck;
 
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;

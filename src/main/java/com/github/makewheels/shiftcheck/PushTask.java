@@ -1,9 +1,9 @@
-package com.eg.shiftcheck;
+package com.github.makewheels.shiftcheck;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.eg.shiftcheck.bean.weather.Data;
-import com.eg.shiftcheck.bean.weather.WeatherResponse;
+import com.github.makewheels.shiftcheck.bean.weather.Data;
+import com.github.makewheels.shiftcheck.bean.weather.WeatherResponse;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
