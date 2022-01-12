@@ -47,8 +47,8 @@ public class PushTask {
     );
 
     private final List<String> phoneNumbers = Arrays.asList(
-            "15527175535"
-//            "13351181909"
+            "15527175535",
+            "13351181909"
     );
 
     private final int targetBanzu = 2;
@@ -101,7 +101,7 @@ public class PushTask {
             //获取天气信息
             WeatherResponse weatherResponse = getWeatherService().getByCityName("大庆");
             Data data = weatherResponse.getData().get(1);
-            String weather = data.getWea() + " " + data.getTem_night() + " ~ " + data.getTem_day() + "°C";
+            String weather = data.getWea() + " " + data.getTem_night() + "到" + data.getTem_day() + "°C";
             getPushService().pushToWechatMiniProgram(openIds, banName, week, time, weather);
             for (String phoneNumber : phoneNumbers) {
                 getPushService().sendRemindSms(phoneNumber, banName, time + " " + week, weather);
