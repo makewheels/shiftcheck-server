@@ -1,10 +1,12 @@
-package com.github.makewheels.shiftcheck;
+package com.github.makewheels.shiftcheck.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baidubce.services.sms.model.SendMessageV3Response;
 import com.github.makewheels.HttpUtil;
 import com.github.makewheels.shiftcheck.bean.miniprogrampush.*;
+import com.github.makewheels.shiftcheck.service.AccessTokenService;
+import com.github.makewheels.shiftcheck.service.BaiduSmsService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,20 @@ public class PushService {
     private AccessTokenService accessTokenService;
     @Resource
     private BaiduSmsService baiduSmsService;
+
+    public AccessTokenService getAccessTokenService() {
+        if (accessTokenService == null) {
+            accessTokenService = new AccessTokenService();
+        }
+        return accessTokenService;
+    }
+
+    public BaiduSmsService getBaiduSmsService() {
+        if (baiduSmsService == null) {
+            baiduSmsService = new BaiduSmsService();
+        }
+        return baiduSmsService;
+    }
 
     /**
      * {
@@ -46,7 +62,7 @@ public class PushService {
      * 订阅消息参数
      */
     private String sendSingleUser(String openId, String banName, String week, String time, String weather) {
-        String accessToken = accessTokenService.getAccessToken();
+        String accessToken = getAccessTokenService().getAccessToken();
         String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + accessToken;
         Template template = new Template();
         template.setTouser(openId);
@@ -104,7 +120,7 @@ public class PushService {
         map.put("date", date);
         map.put("temp", temp);
         System.out.println("发短信: phoneNumber = " + phoneNumber + " " + JSON.toJSONString(map));
-        SendMessageV3Response response = baiduSmsService.sendRemindSms(phoneNumber, map);
+        SendMessageV3Response response = getBaiduSmsService().sendRemindSms(phoneNumber, map);
         System.out.println("PushService.sendRemindSms");
         System.out.println(response);
         String code = response.getCode();

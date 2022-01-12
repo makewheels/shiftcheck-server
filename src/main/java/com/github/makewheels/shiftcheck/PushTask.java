@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.makewheels.shiftcheck.bean.weather.Data;
 import com.github.makewheels.shiftcheck.bean.weather.WeatherResponse;
+import com.github.makewheels.shiftcheck.service.PushService;
+import com.github.makewheels.shiftcheck.service.WeatherService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +26,20 @@ public class PushTask {
     private PushService pushService;
     @Resource
     private WeatherService weatherService;
+
+    public PushService getPushService() {
+        if (pushService == null) {
+            pushService = new PushService();
+        }
+        return pushService;
+    }
+
+    public WeatherService getWeatherService() {
+        if (weatherService == null) {
+            weatherService = new WeatherService();
+        }
+        return weatherService;
+    }
 
     private final List<String> openIds = Arrays.asList(
             "o9K4b0QW0Yz2wosJeEIIk7QJo8Cg",
@@ -83,12 +99,12 @@ public class PushTask {
             String week = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.SIMPLIFIED_CHINESE);
             String time = end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             //获取天气信息
-            WeatherResponse weatherResponse = weatherService.getByCityName("大庆");
+            WeatherResponse weatherResponse = getWeatherService().getByCityName("大庆");
             Data data = weatherResponse.getData().get(1);
-            String weather = data.getWea() + " " + data.getTem_night() + "-" + data.getTem_day() + "°C";
-            pushService.pushToWechatMiniProgram(openIds, banName, week, time, weather);
+            String weather = data.getWea() + " " + data.getTem_night() + " ~ " + data.getTem_day() + "°C";
+            getPushService().pushToWechatMiniProgram(openIds, banName, week, time, weather);
             for (String phoneNumber : phoneNumbers) {
-                pushService.sendRemindSms(phoneNumber, banName, time + " " + week, weather);
+                getPushService().sendRemindSms(phoneNumber, banName, time + " " + week, weather);
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.github.makewheels.shiftcheck;
+package com.github.makewheels.shiftcheck.service;
 
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccessTokenService {
-    @Value("${appid}")
-    private String appid;
+    private String appid = System.getenv("shiftcheck_server_app_id");
 
     private long expireTime;
     private String accessToken;

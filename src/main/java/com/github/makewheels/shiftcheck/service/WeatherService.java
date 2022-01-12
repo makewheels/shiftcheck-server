@@ -1,4 +1,4 @@
-package com.github.makewheels.shiftcheck;
+package com.github.makewheels.shiftcheck.service;
 
 import com.alibaba.fastjson.JSON;
 import com.github.makewheels.shiftcheck.bean.weather.WeatherResponse;
