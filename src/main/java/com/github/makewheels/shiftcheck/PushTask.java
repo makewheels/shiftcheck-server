@@ -60,7 +60,7 @@ public class PushTask {
         int hour = now.getHour();
         if (hour != 19) {
             System.out.println("现在不是19点，跳过: " + LocalDateTime.now().toString());
-//            return;
+            return;
         }
 
         String ruleJson = "{\"type\":\"1\",\"showName\":\"五班三倒\",\"idName\":\"wbsd-work" +
