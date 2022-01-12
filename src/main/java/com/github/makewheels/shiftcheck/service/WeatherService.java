@@ -12,6 +12,13 @@ public class WeatherService {
     @Resource
     private RestTemplate restTemplate;
 
+    public RestTemplate getRestTemplate() {
+        if (restTemplate == null) {
+            restTemplate = new RestTemplate();
+        }
+        return restTemplate;
+    }
+
     /**
      * 根据城市名获取天气
      *
