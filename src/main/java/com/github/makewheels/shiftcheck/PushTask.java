@@ -54,7 +54,7 @@ public class PushTask {
     private final int targetBanzu = 2;
 
     @Scheduled(fixedRate = 1000 * 60 * 60)
-    private void push() {
+    public void push() {
         //首先看现在是不是推送时间，先按照晚上19点来
         LocalDateTime now = LocalDateTime.now();
         int hour = now.getHour();
