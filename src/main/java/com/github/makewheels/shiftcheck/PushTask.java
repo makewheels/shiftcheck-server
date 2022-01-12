@@ -13,12 +13,14 @@ import javax.annotation.Resource;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 @Component
 public class PushTask {
@@ -53,13 +55,17 @@ public class PushTask {
 
     private final int targetBanzu = 2;
 
+    public static void main(String[] args) {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Tokyo"));
+        System.out.println(LocalDateTime.now());
+    }
     @Scheduled(fixedRate = 1000 * 60 * 60)
     public void push() {
         //首先看现在是不是推送时间，先按照晚上19点来
         LocalDateTime now = LocalDateTime.now();
         int hour = now.getHour();
         if (hour != 19) {
-            System.out.println("现在不是19点，跳过: " + LocalDateTime.now().toString());
+            System.out.println("现在不是19点，跳过: " + now);
             return;
         }
 
