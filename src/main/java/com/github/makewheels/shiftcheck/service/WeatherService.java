@@ -26,7 +26,7 @@ public class WeatherService {
      * @return
      */
     public WeatherResponse getByCityName(String cityName) {
-        WeatherResponse weatherResponse = restTemplate.getForObject(
+        WeatherResponse weatherResponse = getRestTemplate().getForObject(
                 "https://www.tianqiapi.com/free/week?appid=37764671&appsecret=dd47qYbv&city=" + cityName,
                 WeatherResponse.class);
         System.out.println("WeatherService.getByCityName");
