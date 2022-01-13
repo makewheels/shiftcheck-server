@@ -10,10 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
@@ -59,13 +56,15 @@ public class PushTask {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Tokyo"));
         System.out.println(LocalDateTime.now());
     }
+
     @Scheduled(fixedRate = 1000 * 60 * 60)
     public void push() {
         //首先看现在是不是推送时间，先按照晚上19点来
         LocalDateTime now = LocalDateTime.now();
+        System.out.println("现在时间：" + now);
         int hour = now.getHour();
         if (hour != 19) {
-            System.out.println("现在不是19点，跳过: " + now);
+            System.out.println("现在不是19点，跳过: ");
             return;
         }
 
