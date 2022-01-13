@@ -64,7 +64,7 @@ public class PushTask {
         System.out.println("现在时间：" + now);
         int hour = now.getHour();
         if (hour != 19) {
-            System.out.println("现在不是19点，跳过: ");
+            System.out.println("现在不是19点，跳过");
             return;
         }
 
