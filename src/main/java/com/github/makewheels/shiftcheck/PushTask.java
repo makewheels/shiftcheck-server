@@ -46,7 +46,6 @@ public class PushTask {
     );
 
     private final List<String> phoneNumbers = Arrays.asList(
-            "15527175535",
             "13351181909"
     );
 
