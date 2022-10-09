@@ -52,11 +52,6 @@ public class PushTask {
 
     private final int targetBanzu = 2;
 
-    public static void main(String[] args) {
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Tokyo"));
-        System.out.println(LocalDateTime.now());
-    }
-
     @Scheduled(fixedRate = 1000 * 60 * 60)
     public void push() {
         //首先看现在是不是推送时间，先按照晚上19点来
@@ -112,5 +107,15 @@ public class PushTask {
                 getPushService().sendRemindSms(phoneNumber, banName, time + " " + week, weather);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        String a = "{\"type\":\"1\",\"showName\":\"五班三倒\",\"idName\":\"wbsd-work" +
+                "er\",\"startDate\":\"2016-06-07\",\"restName\":\"休息\",\"banzuList\":[\"一班" +
+                "\",\"二班\",\"三班\",\"四班\",\"五班\"],\"banList\":[\"后夜（零点）\",\"白班\"" +
+                ",\"前夜\"],\"periodList\":[\"1,3,5\",\"2,4,1\",\"3,5,2\",\"4,1,3\",\"5,2,4" +
+                "\"],\"workerPushTime\":[{\"day\":1,\"hour\":19},{\"day\":1,\"hour\":19},{" +
+                "\"day\":1,\"hour\":19}]}";
+        System.out.println(a);
     }
 }
